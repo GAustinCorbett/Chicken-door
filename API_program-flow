@@ -1,0 +1,26 @@
+//WIFI
+setup_wifi()
+connect_server()
+send_error("Error string")
+  Sends "error string" to connected server, if possible
+  
+//SENSORS/STATE FUNCTIONS
+door_state()
+door_sensor_state()
+IR_break_state()
+get_time():
+  Interacts with RTC module
+  Returns current time
+update_time():
+  Updates the RTC module time via network, if possible
+  
+//DOOR ACTUATION
+open_door()
+close_door()
+
+//MAIN 
+setup()
+  initializes all the I/O for the arduino
+loop()
+  get_time()
+   
