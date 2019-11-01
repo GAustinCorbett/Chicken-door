@@ -8,7 +8,7 @@
 #define Dusk2Dawn_h
 
   #include "Arduino.h"
-// #include <Math.h>
+// #include <Math.h>   Removed to make this compile.  Seems it's not needed? -G.A. Corbett
 
   class Dusk2Dawn {
     public:
