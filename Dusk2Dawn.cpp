@@ -5,7 +5,7 @@
  */
 
 #include "Arduino.h"
-//#include <Math.h>
+//#include <Math.h>  //Removed to make compile on linux.  -G.A. Corbett
 #include "Dusk2Dawn.h"
 
 
