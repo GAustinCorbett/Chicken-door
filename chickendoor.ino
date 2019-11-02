@@ -7,6 +7,7 @@
  */
 #include "IRbreak.h"
 #include "RTClib.h"
+#include "RTCmod.h"
 #include "Dusk2Dawn.h"
 
 //1.0 GLOBAL PARAMETERS
@@ -28,7 +29,8 @@ static int IRSENSORPIN = 2;
 //#define LEDPIN 13 //Not necessarily needed, but turning on pin 13 to output will turn on the onboard LED.  Kinda Cool.
 
 //2.0 GLOBAL CLASSES
-RTC_DS3231 rtc;  //Initialize the RTC object class to interact with the RTC module
+//RTC_DS3231 rtc;  //Initialize the RTC object class to interact with the RTC module
+RTCmod rtcmodule;
 IRbreak beam(IRSENSORPIN);  //Initialize irbreak beam object
 
 //3.0 GLOBAL VARIABLES
@@ -37,25 +39,6 @@ int irlaststate = 0;
 void setup() {
 //SETUP THE RTC MODULE:   THIS NEEDS TO BE CHANGED TO USE THE NETWORK TIME WHEN THAT'S AVAILABLE.
 
-#ifndef ESP8266
-  while (!Serial); // for Leonardo/Micro/Zero
-#endif
- 
-  Serial.begin(9600);
-
-  delay(3000); // wait for console opening
-
-  if (! rtc.begin()) {
-    Serial.println("Couldn't find RTC");
-    while (1);
-  }
-
-  if (rtc.lostPower()) {
-    Serial.println("RTC lost power, lets set the time!");
-    // following line sets the RTC to the date & time this sketch was compiled
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-  }
-//END SETUP OF RTC MODULE 
 }
 
 void loop() {
