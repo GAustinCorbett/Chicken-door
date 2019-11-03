@@ -9,21 +9,24 @@
 #include "RTClib.h"
 #include "RTCmod.h"
 #include "Dusk2Dawn.h"
+#include "actuator.h"
 
 //1.0 GLOBAL PARAMETERS
 static float LAT = -124.1288634; //lat + long are for sunrise/sunset calcs
 static float LONG = 40.9382061;     
 static int UTCOFFSET = -8; //PST is 8 hours behind UTC
+static long MOTORDELAY = 120000; //120 seconds, in miliseconds
 
 /*
- * pins A4 & A5 are taken for SDA & SCL on the RTC module respectively; they're dedicated i2C clock pins to let the uno interact with the RTC module 
+  pins A4 & A5 are taken for SDA & SCL on the RTC module respectively; they're dedicated i2C clock pins to let the uno interact with the RTC module 
 */
 
 //1.1 INPUT PINS
 static int IRSENSORPIN = 2;
 
 //1.2 OUTPUT PINS
-
+static int OPENPIN = 3;
+static int CLOSEPIN = 4; 
 
 //1.3 SPECIAL 
 //#define LEDPIN 13 //Not necessarily needed, but turning on pin 13 to output will turn on the onboard LED.  Kinda Cool.
@@ -32,7 +35,7 @@ static int IRSENSORPIN = 2;
 //RTC_DS3231 rtc;  //Initialize the RTC object class to interact with the RTC module
 RTCmod rtcmodule;
 IRbreak beam(IRSENSORPIN);  //Initialize irbreak beam object
-
+actuator act(OPENPIN, CLOSEPIN, IRSENSORPIN, MOTORDELAY);
 //3.0 GLOBAL VARIABLES
 int irlaststate = 0;
 
@@ -51,5 +54,18 @@ void loop() {
     Serial.println("Broken");
   }
   irlaststate = beam.getStatus();
+  DateTime now = rtcmodule.rtc.now();
+  Serial.print(now.hour(), DEC);
+  Serial.print(':');
+  Serial.print(now.minute(), DEC);
+  Serial.print(':');
+  Serial.print(now.second(), DEC);
+  Serial.println();
+  
+  if(!act.openDoor())
+  {
+    /*throw exception*/
+  }  
+
 }
  
