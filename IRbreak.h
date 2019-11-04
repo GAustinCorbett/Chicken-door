@@ -19,4 +19,3 @@ class IRbreak
 };
 
 #endif
-

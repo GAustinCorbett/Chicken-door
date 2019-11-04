@@ -13,13 +13,15 @@
 class actuator
 {
     public:
-        actuator(int OPENPIN, int CLOSEPIN, int IRSENSORPIN, int MOTORDELAY);
+        actuator(int OPENPIN, int CLOSEPIN, int IRSENSORPIN, int OPENSENSORPIN, int CLOSESENSORPIN, int MOTORDELAY);
         int openDoor();
         int closeDoor();
     private:
         int _OPENPIN;
         int _CLOSEPIN; 
         int _IRSENSORPIN;
+        int _OPENSENSORPIN;
+        int _CLOSESENSORPIN;
         //IRbreak _beam;
         int _MOTORDELAY;
 };
