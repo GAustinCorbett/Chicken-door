@@ -13,5 +13,3 @@ int IRbreak::getStatus()
 {
     return(digitalRead(_SENSORPIN));
 }
-
-

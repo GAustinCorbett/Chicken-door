@@ -23,6 +23,8 @@ static long MOTORDELAY = 120000; //120 seconds, in miliseconds
 
 //1.1 INPUT PINS
 static int IRSENSORPIN = 2;
+static int OPENSENSORPIN = 5;
+static int CLOSESENSORPIN = 6; 
 
 //1.2 OUTPUT PINS
 static int OPENPIN = 3;
@@ -35,12 +37,11 @@ static int CLOSEPIN = 4;
 //RTC_DS3231 rtc;  //Initialize the RTC object class to interact with the RTC module
 RTCmod rtcmodule;
 IRbreak beam(IRSENSORPIN);  //Initialize irbreak beam object
-actuator act(OPENPIN, CLOSEPIN, IRSENSORPIN, MOTORDELAY);
+actuator act(OPENPIN, CLOSEPIN, IRSENSORPIN, OPENSENSORPIN, CLOSESENSORPIN, MOTORDELAY);
 //3.0 GLOBAL VARIABLES
 int irlaststate = 0;
 
 void setup() {
-//SETUP THE RTC MODULE:   THIS NEEDS TO BE CHANGED TO USE THE NETWORK TIME WHEN THAT'S AVAILABLE.
 
 }
 
