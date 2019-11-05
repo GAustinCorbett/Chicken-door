@@ -1,6 +1,8 @@
 /*
     doorsensor.cpp - constructor & methods for doorsensor.h, a library for interacting with the
-    reed switch door sensors and the arduino
+    reed switch door sensors and the arduino.
+    The reed switch should be connected with one leg going to sensor pin, and the other leg 
+    going to GND.  (THIS IS VERY IMPORTANT, OTHERWISE SWITCH WILL NEVER TRIGGER.)
     Created by G. Austin Corbett gaustincorbett@gmail.com 2019
     Released under GPLv3
 */
@@ -12,12 +14,23 @@
 doorsensor::doorsensor(int SENSORPIN)
 {
     _SENSORPIN = SENSORPIN;
-    pinMode(_SENSORPIN, INPUT);
-    //sets the logic trigger on arduino input pin as either 5V (high) or 3.3V (low):
+    
+    //This stabilizes the circuit against noise but inverts logic:
+    pinMode(_SENSORPIN, INPUT_PULLUP);
+ 
+    // Enables the internal pullup resistor to stabilize against noise. 
     digitalWrite(_SENSORPIN, HIGH);
+
 }
 
 int doorsensor::getStatus()
 {
-   return digitalRead(_SENSORPIN); 
+    if (digitalRead(_SENSORPIN))
+    {
+        return(0);    
+    }
+    else
+    {
+        return (1);
+    } 
 }
