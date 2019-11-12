@@ -18,18 +18,18 @@ relay::relay(const int &TRIGGERPIN):_TRIGGERPIN{TRIGGERPIN}{
     state = 0;  // initial state is untriggered = 0
 }
 
-int relay::on(){
+void relay::on(){
     digitalWrite(_TRIGGERPIN, HIGH);
     state = 1;
     return(0);
 }
 
-int relay::off(){
+void relay::off(){
     digitalWrite(_TRIGGERPIN, LOW);
     state = 0; 
     return(0);
 }
 
-int relay::status(){
+int relay::getStatus(){
     return(state);
 }

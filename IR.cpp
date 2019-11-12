@@ -1,10 +1,10 @@
 #include "Arduino.h"
-#include "IRbreak.h"
+#include "IR.h"
 
-IR::IR(const int &SENSORPIN , const int &TXPWRPIN, const int &RXPWRPIN):_SENSORPIN{SENSORPIN} , _TXPWRPIN{TXPWRPIN}, _RXPWRPIN{RXPWRPIN} {
+IR::IR(const int &SENSORPIN , const int &TXPWRPIN, const int &RXPWRPIN):_SENSORPIN{SENSORPIN},_TXPWRPIN{TXPWRPIN},_RXPWRPIN{RXPWRPIN}{
    
-    pinMode(_SENSORPIN, INPUT); //should be input_pullup?
-    digitalWrite(_SENSORPIN, HIGH); //Turn on the pull-up
+    pinMode(_SENSORPIN, INPUT_PULLUP); //should be input_pullup?
+    digitalWrite(_SENSORPIN, HIGH); //Turn on the pull-up, probably redundant
     
     //Initialize in an unpowered state:
     pinMode(_TXPWRPIN, OUTPUT);
@@ -16,7 +16,7 @@ IR::IR(const int &SENSORPIN , const int &TXPWRPIN, const int &RXPWRPIN):_SENSORP
 }
 
 int IR::getStatus(){
-    return(!digitalRead(_SENSORPIN)); 
+    return(digitalRead(_SENSORPIN)); // 1 = broken beam
 }
 
 void IR::turnOn(){

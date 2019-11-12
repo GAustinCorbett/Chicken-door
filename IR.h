@@ -4,12 +4,12 @@
     Released via GPLv3
 */
 
-#ifndef IR
-#define IR
+#ifndef IR_h
+#define IR_h
 
 #include "Arduino.h"
 
-class IR {
+class IR{
     public: 
         IR(const int &SENSORPIN , const int &TXPWRPIN, const int &RXPWRPIN);
         int getStatus();
