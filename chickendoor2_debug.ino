@@ -3,11 +3,12 @@
     
     int PARAM1 = 2;
     int PARAM2 = 3;
+    int MOTORDELAY = 120000;
     
-    const relay openRel(PARAM1);// = relay(PARAM1);
-    const relay closeRel(PARAM2);// = relay(PARAM2);
+    const relay openRel(PARAM1); 
+    const relay closeRel(PARAM2);
     
-    const actuator act(openRel, closeRel);
+    const actuator act(openRel, closeRel, MOTORDELAY);
     
     void setup() {
         // put your setup code here, to run once:

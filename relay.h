@@ -11,9 +11,9 @@
 class relay{
     public:
         relay(const int &TRIGGERPIN);
-        int on();
-        int off();
-        int status();
+        void on();
+        void off();
+        int getStatus();
         
     private:
         const int &_TRIGGERPIN;
