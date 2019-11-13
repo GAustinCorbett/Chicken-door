@@ -18,7 +18,8 @@ class door{
         door(const IR &ir, const actuator &act);
         void close();
         void open();
-        int getStatus(); //door status: 0 = open, 1 = 
+        int getStatus(); //door status: 0 = open, 1 = closed
+        void setState(int state);
     private:
         int state_; 
         bool isTimeUp(unsigned long start_time);
