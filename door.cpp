@@ -67,6 +67,10 @@ int door::getStatus(){
     return(state_);
 }
 
+void door::setState(int state){
+    state_ = state;
+}
+
 bool door::isTimeUp(unsigned long start_time){
     unsigned long current_time = millis();
     unsigned long end_time = start_time + act_.MOTORDELAY;
