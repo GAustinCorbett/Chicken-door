@@ -14,16 +14,18 @@
 
 class TimeOps{
     public:
-        TimeOps(RTC_DS3231 &rtc, Dusk2Dawn &d2d );
-        int nextEvent();  //  1 = sunset/closing event, 0 = sunrise/opening event
-        int nextEventTime(); //Time of next event in minutes from midnight
-        int con2MinFromMid( Datetime &adate); //convert DateTime object to minutes from midnight
-        
+        TimeOps(RTC_DS3231 &rtc, const Dusk2Dawn &d2d );
+        void update(); //update the now_ DateTime obj and the sunrise/sunset integer times
+        DateTime currentTime(); 
+        String nextEvent();  //  1 = sunset/closing event, 0 = sunrise/opening event
+        DateTime nextEventTime(); //DateTime object of next event 
     private:
-        Dusk2Dawn &d2d_;
+        DateTime intToDT(int event);
+        const Dusk2Dawn &d2d_;
         RTC_DS3231 &rtc_;
-       
+        DateTime now_;
         int sunrise_;
         int sunset_;
-
+        String nextEvent_;
+};
 #endif
