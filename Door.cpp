@@ -15,9 +15,7 @@ Door::Door(const IR &ir, const actuator &act):ir_{ir},act_{act}{
 void Door::open(){
     act_.halt();  //stop the actuator if it isn't already
     act_.lengthen();  //open the Door
-    //delay(10000);  
-    Serial.println("test in door.open()");
-    Serial.println(act_.MOTORDELAY);
+    
     delay(act_.MOTORDELAY);  //Wait for the Door to open all the way
     
     act_.halt();  //shut off the relay

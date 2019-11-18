@@ -22,7 +22,7 @@ void TimeOps::update(){
 
     //false refers to Daylight Savings Time.  DateTime doesn't use it
     //so it's easiest to just ignore DST I think. 
-    sunrise_ = d2d_.sunrise(int(now_.year()), int(now_.month()), int(now_.day()), false);
+    sunrise_ = d2d_.sunrise(now_.year(), now_.month(), now_.day(), false);
     
     sunset_ = d2d_.sunset(now_.year(), now_.month(), now_.day(), false);
 }

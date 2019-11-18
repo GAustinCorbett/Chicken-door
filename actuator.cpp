@@ -11,8 +11,6 @@ actuator::actuator(const relay &openRel, const relay &closeRel, const long &MOTO
 }    
     
 void actuator::lengthen(){
-    Serial.println("In actuator.lengthen, MOTORDELAY =:");
-    Serial.println(MOTORDELAY);
     _closeRel.off(); // Turn off closing relay Just in case
     _openRel.on();   // Turn on opening relay and leave on
     state = 1;
