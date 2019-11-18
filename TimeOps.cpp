@@ -11,9 +11,9 @@
 #include "Dusk2Dawn.h"
 #include "TimeOps.h"
 
-TimeOps::TimeOps(RTC_DS3231 &rtc, const Dusk2Dawn &d2d):rtc_{rtc}, d2d_{d2d} { 
-
-    update();
+TimeOps::TimeOps(RTC_DS3231 &rtc, const Dusk2Dawn &d2d, const int &SUNRISEOFFSET, const int &SUNSETOFFSET):rtc_{rtc}, d2d_{d2d}, SUNRISEOFFSET_{SUNRISEOFFSET}, SUNSETOFFSET_{SUNSETOFFSET} { 
+    
+    //update();  This doesn't work.  Not sure why, but program hangs during initilization of instance.
 }
 
 //updat the now_ mark DateTime object and the sunrise_/sunset_ integers from Dusk2Dawn
@@ -22,7 +22,8 @@ void TimeOps::update(){
 
     //false refers to Daylight Savings Time.  DateTime doesn't use it
     //so it's easiest to just ignore DST I think. 
-    sunrise_ = d2d_.sunrise(now_.year(), now_.month(), now_.day(), false); 
+    sunrise_ = d2d_.sunrise(now_.year(), now_.month(), now_.day(), false);
+    
     sunset_ = d2d_.sunset(now_.year(), now_.month(), now_.day(), false);
 }
 
@@ -33,9 +34,9 @@ DateTime TimeOps::currentTime(){
 // This is a little dodgy. operator>() uses DateTime and if intToDT 
 // picks the wrong date, logical test fails.   I THINK I got it right tho?
 String TimeOps::nextEvent(){ 
-    String nextEvent_; 
-    
-    if (now_.operator>(intToDT(sunrise_)) && now_.operator<(intToDT(sunset_))){
+        
+    //if (now_.operator>(intToDT(sunrise_)) && now_.operator<(intToDT(sunset_))){
+    if (now_.operator<(intToDT(sunset_+ SUNSETOFFSET_))){    
         nextEvent_ = "sunset" ;
     }
     else{
@@ -46,10 +47,13 @@ String TimeOps::nextEvent(){
 
 DateTime TimeOps::nextEventTime(){
     if (nextEvent_ == "sunset"){
-        return(intToDT(sunset_));
+        return(intToDT(sunset_+ SUNSETOFFSET_));  //CHANGE THE OFFSET TO BE A PARAMETER
+    }
+    else if((nextEvent_ == "sunrise") && (now_.hour()*60+now_.minute()<sunset_)){
+        return(intToDT(sunrise_ + SUNRISEOFFSET_)); //CHANGE THE OFFSET TO BE A PARAMETER
     }
     else{
-        return(intToDT(sunrise_));
+        return(intToDT(sunrise_ - 30)+TimeSpan(1,0,0,0));
     }
 }
 
@@ -60,10 +64,9 @@ DateTime TimeOps::intToDT(int event){
     
     DateTime dt(now_.year(), now_.month(), now_.day(), event_hours, event_minutes, 0);
    
-   // now is after noon, it was set after closing the door, so next event is sunrise
-    // And it occurs on the following day from now_.
+   /*
     if( now_.hour() > 12){  
         dt = dt.operator+(TimeSpan(1,0,0,0)); //adds one day to dt. 
-    }
+    }*/
     return(dt); 
 }

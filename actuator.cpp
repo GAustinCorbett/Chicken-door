@@ -6,7 +6,7 @@
 #include "Arduino.h"
 #include "actuator.h"
 
-actuator::actuator(const relay &openRel, const relay &closeRel, const int &MOTORDELAY):_openRel{openRel} , _closeRel{closeRel} , MOTORDELAY{MOTORDELAY}{
+actuator::actuator(const relay &openRel, const relay &closeRel, const long &MOTORDELAY):_openRel{openRel} , _closeRel{closeRel} , MOTORDELAY{MOTORDELAY}{
     state = 0;
 }    
     

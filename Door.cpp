@@ -15,7 +15,9 @@ Door::Door(const IR &ir, const actuator &act):ir_{ir},act_{act}{
 void Door::open(){
     act_.halt();  //stop the actuator if it isn't already
     act_.lengthen();  //open the Door
+    
     delay(act_.MOTORDELAY);  //Wait for the Door to open all the way
+    
     act_.halt();  //shut off the relay
     state_ = 0;
 }
