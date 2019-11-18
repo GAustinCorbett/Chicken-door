@@ -6,11 +6,13 @@
 #include "Arduino.h"
 #include "actuator.h"
 
-actuator::actuator(const relay &openRel, const relay &closeRel, const int &MOTORDELAY):_openRel{openRel} , _closeRel{closeRel} , MOTORDELAY{MOTORDELAY}{
+actuator::actuator(const relay &openRel, const relay &closeRel, const long &MOTORDELAY):_openRel{openRel} , _closeRel{closeRel} , MOTORDELAY{MOTORDELAY}{
     state = 0;
 }    
     
 void actuator::lengthen(){
+    Serial.println("In actuator.lengthen, MOTORDELAY =:");
+    Serial.println(MOTORDELAY);
     _closeRel.off(); // Turn off closing relay Just in case
     _openRel.on();   // Turn on opening relay and leave on
     state = 1;

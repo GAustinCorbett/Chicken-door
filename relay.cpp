@@ -13,6 +13,7 @@
 //Class constructor: Set up the trigger pin, initially untriggered.
 
 relay::relay(const int &TRIGGERPIN):_TRIGGERPIN{TRIGGERPIN}{
+    
     pinMode(_TRIGGERPIN, OUTPUT);  
     digitalWrite(_TRIGGERPIN, LOW);  //Probably unneccessary
     state = 0;  // initial state is untriggered = 0
