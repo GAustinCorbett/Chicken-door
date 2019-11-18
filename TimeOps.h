@@ -14,7 +14,7 @@
 
 class TimeOps{
     public:
-        TimeOps(RTC_DS3231 &rtc, const Dusk2Dawn &d2d );
+        TimeOps(RTC_DS3231 &rtc, const Dusk2Dawn &d2d, const int &SUNRISEOFFSET, const int &SUNSETOFFSET );
         void update(); //update the now_ DateTime obj and the sunrise/sunset integer times
         DateTime currentTime(); 
         String nextEvent();  //  1 = sunset/closing event, 0 = sunrise/opening event
@@ -23,6 +23,8 @@ class TimeOps{
         DateTime intToDT(int event);
         const Dusk2Dawn &d2d_;
         RTC_DS3231 &rtc_;
+        const int &SUNRISEOFFSET_;
+        const int &SUNSETOFFSET_;
         DateTime now_;
         int sunrise_;
         int sunset_;

@@ -12,12 +12,12 @@
 
 class actuator{
     public:
-        actuator(const relay &openRel, const relay &closeRel, const int &MOTORDELAY);
+        actuator(const relay &openRel, const relay &closeRel, const long &MOTORDELAY);
         void lengthen();  // trigger the opening relay
         void shorten();   // trigger the closing relay 
         void halt();      // Untrigger both relays
         int status();  // return -1 = shortening or short, 0 = stopped, 1 = lengthening or long
-        const int &MOTORDELAY;
+        const long &MOTORDELAY;
     private:
         const relay &_openRel;
         const relay &_closeRel;
