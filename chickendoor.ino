@@ -21,11 +21,12 @@ const int IRSENSORPIN = 4;
     // SDA = A4 on Uno, Digital 20 on Mega
 
 //OTHER PARAMETERS:
-const float LAT = -124.1288634; //Lat + Long for sunrise/sunset calcs
-const float LONG = 40.9382061; 
-const float UTCOFFSET = -8;  //PST is 8 hours behind UTC
-const int MOTORDELAY = 120000; //Time to wait for door to fully open/close
-
+const float LAT = 40.9382; //Lat + Long for sunrise/sunset calcs
+const float LONG = -124.1288; 
+const float UTCOFFSET = -8.0;  //PST is 8 hours behind UTC
+const long MOTORDELAY = 120000; //Time to wait for door to fully open/close
+const int SUNSETOFFSET = 40;  //Door close time = sunset_time + SUNSETOFFSET (minutes)
+const int SUNRISEOFFSET = -30; //Door close time = sunrise_time+ SUNRISEOFFSET (minutes)
 
 //Class instances
 const relay openRel(OPENRELPIN); 
@@ -35,27 +36,49 @@ const IR ir(IRSENSORPIN, IRTXPWR, IRRXPWR);
 const Door door(ir , act);
 const Dusk2Dawn d2d(LAT, LONG, UTCOFFSET);
 RTC_DS3231 rtc; //Potentially needs to have time reset, not sure if being const would interfere.
-TimeOps timeObj(rtc, d2d);
+TimeOps timeObj(rtc, d2d, SUNRISEOFFSET,  SUNSETOFFSET);
+
 
 void setup() {
-   Serial.begin(9600);
-   delay(3000);
-   
+  Serial.begin(9600);
+  delay(2000);
+  Serial.println("Beginning setup");
   //initialization for RTC:
-  #ifndef ESP8266
-    while (!Serial); // for Leonardo/Micro/Zero
-  #endif
+#ifndef ESP8266
+  while (!Serial); // for Leonardo/Micro/Zero
+#endif
+
+  if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    while (1);
+  }
+
   if (rtc.lostPower()) {
     Serial.println("RTC lost power, lets set the time!");
     // following line sets the RTC to the date & time this sketch was compiled
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    // This line sets the RTC with an explicit date & time, for example to set
+    // January 21, 2014 at 3am you would call:
+    // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
   }
-  //END initialization for RTC
+    timeObj.update();
 }
 
 void loop() {
-    if (timeObj.currentTime().operator>=(timeObj.nextEventTime())){
-        if (timeObj.nextEvent()=='sunset'){
+    ///*
+    Serial.print("timeObj.nextEvent(): ");
+    Serial.println(timeObj.nextEvent());
+    Serial.print("timeObj.nextEventTime().hour(): ");
+    Serial.print(timeObj.nextEventTime().hour());
+    Serial.print(":");
+    Serial.println(timeObj.nextEventTime().minute());
+    Serial.print("timeObj.currentTime().hour(): ");
+    Serial.print(timeObj.currentTime().hour());
+    Serial.print(":");
+    Serial.println(timeObj.currentTime().minute());
+        
+    if (timeObj.currentTime().operator>(timeObj.nextEventTime())){
+        if (timeObj.nextEvent()=="sunset"){
             door.close();
         }
         else{
@@ -63,31 +86,6 @@ void loop() {
         }
         delay(90000);  //Wait 90 sec to make sure timeObj.update() kicks comparison to next minute
         timeObj.update();
-    }
-  /*
-  act.lengthen();
-  Serial.println("Lengthening");
-  delay(1500);
-  act.halt();
-  Serial.println("Halt");
-  delay(1500);
-  act.shorten();
-  Serial.println("Shortening");
-  delay(1500);
-  act.halt();
-  Serial.println("Halt");
-  //*/
-
-  /*
-  closeRel.on();
-  Serial.println("closerel on");
-  delay(1500);
-  closeRel.off();
-  Serial.println("closerel off");
-  openRel.on();
-  Serial.println("Openrel on");
-  delay(1500);
-  openRel.off();
-  Serial.println("Openrel off");
-  //*/
+    }  
+    delay(60000);
 }
