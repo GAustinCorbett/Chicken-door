@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name relay_h-l_12vdc_5vtrigger_nc_no)(type Legacy)(uri ${KIPRJMOD}/relay_h-l_12vdc_5vtrigger_nc_no.lib)(options "")(descr ""))
+  (lib (name sw_dpdt_msm_center-off)(type Legacy)(uri ${KIPRJMOD}/sw_dpdt_msm_center-off.lib)(options "")(descr ""))
+  (lib (name sensor_optical_ir_breakbeam_sensor)(type Legacy)(uri ${KIPRJMOD}/sensor_optical_ir_breakbeam_sensor.lib)(options "")(descr ""))
+)

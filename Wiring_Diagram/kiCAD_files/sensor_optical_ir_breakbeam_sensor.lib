@@ -1,0 +1,24 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# Sensor_Optical_IR_breakbeam_Sensor
+#
+DEF Sensor_Optical_IR_breakbeam_Sensor U 0 40 Y Y 1 F N
+F0 "U" 0 0 50 H V C CNN
+F1 "Sensor_Optical_IR_breakbeam_Sensor" 0 0 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+T 0 -1250 50 50 0 0 0 IR_RX Normal 0 C C
+T 0 -700 150 50 0 0 0 IR_TX Normal 0 C C
+S -1400 550 -1000 0 0 0 0 N
+S -850 550 -550 100 0 1 0 N
+X +5Vin 1 -1500 450 100 R 50 50 1 1 W
+X +5Vin 1 -450 450 100 L 50 50 1 1 W
+X GND 2 -1500 300 100 R 50 50 1 1 W
+X GND 2 -450 300 100 L 50 50 1 1 W
+X Dig_out 3 -1500 150 100 R 50 50 1 1 O
+ENDDRAW
+ENDDEF
+#
+#End Library
