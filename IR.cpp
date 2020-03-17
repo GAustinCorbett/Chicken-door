@@ -16,7 +16,7 @@ IR::IR(const int &SENSORPIN , const int &TXPWRPIN, const int &RXPWRPIN):_SENSORP
 }
 
 int IR::getStatus(){
-    return(digitalRead(_SENSORPIN)); // 1 = broken beam
+    return(!digitalRead(_SENSORPIN)); // 0 = broken beam
 }
 
 void IR::turnOn(){

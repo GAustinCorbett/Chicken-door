@@ -32,7 +32,11 @@ void Door::close(){
     // more than 60 seonds, assume failed and close Door without safety sensor
     while(i<6 && ir_.getStatus()){
         i++;
+        Serial.println("IR failure loop");
+        Serial.print("IR status: ");
+        Serial.println(ir_.getStatus());
         if(i == 6){
+            Serial.println("IR Failure, closing w/o safety!!");
             failstatus = true;
             act_.halt();
             act_.shorten();
@@ -50,6 +54,7 @@ void Door::close(){
     act_.shorten();  //begin closing the Door
     start_time = millis();  //check current time in milliseconds
 
+    i=0;
     while(Door::isTimeUp(start_time)!=1){
        if(ir_.getStatus()){ //if beam is broken, open Door and start over (2 min cycle)
            act_.halt();

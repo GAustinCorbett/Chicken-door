@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:ChickenDoor-kiCAD-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -14,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L MCU_Module:Arduino_UNO_R3 A?
+L ChickenDoor-kiCAD-rescue:Arduino_UNO_R3-MCU_Module A?
 U 1 1 5DE0B9A7
 P 7750 3050
 F 0 "A?" H 7750 4231 50  0000 C CNN
@@ -27,13 +28,13 @@ $EndComp
 $Comp
 L Motor:Motor_DC M_LInear_Actuator
 U 1 1 5DE0D523
-P 2800 4350
-F 0 "M_LInear_Actuator" H 2958 4346 50  0000 L CNN
-F 1 "Motor_DC" H 2958 4255 50  0000 L CNN
-F 2 "" H 2800 4260 50  0001 C CNN
-F 3 "~" H 2800 4260 50  0001 C CNN
-	1    2800 4350
-	1    0    0    -1  
+P 2850 5150
+F 0 "M_LInear_Actuator" H 3008 5146 50  0000 L CNN
+F 1 "Motor_DC" H 3008 5055 50  0000 L CNN
+F 2 "" H 2850 5060 50  0001 C CNN
+F 3 "~" H 2850 5060 50  0001 C CNN
+	1    2850 5150
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:Battery_Cell 12VDC
@@ -46,8 +47,6 @@ F 3 "~" V 4000 2410 50  0001 C CNN
 	1    4000 2350
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	2800 4650 4250 4650
 Wire Wire Line
 	4250 3850 4150 3850
 Wire Wire Line
@@ -130,19 +129,6 @@ Wire Wire Line
 Wire Wire Line
 	10500 3400 9850 3400
 Connection ~ 9850 3400
-$Comp
-L relay_h-l_12vdc_5vtrigger_nc_no:Relay_H-L_12VDC_5vTrigger_NC_NO K?
-U 1 1 5DE3FD87
-P 4550 4450
-F 0 "K?" H 4980 4496 50  0000 L CNN
-F 1 "Relay_H-L_12VDC_5vTrigger_NC_NO" H 4980 4405 50  0000 L CNN
-F 2 "Relay_THT:Relay_SPDT_SANYOU_SRD_Series_Form_C" H 5000 4400 50  0001 L CNN
-F 3 "http://www.sanyourelay.ca/public/products/pdf/SRD.pdf" H 4150 4550 50  0001 C CNN
-	1    4550 4450
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	4250 4250 3200 4250
 Wire Wire Line
 	4850 4150 4900 4150
 Wire Wire Line
@@ -174,7 +160,6 @@ F 3 "~" H 3500 2550 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3800 2350 3700 2350
-Connection ~ 4150 3850
 Entry Wire Line
 	5650 2750 5750 2850
 Entry Wire Line
@@ -189,63 +174,6 @@ Wire Wire Line
 	4250 2850 4250 3450
 Entry Wire Line
 	4050 2750 4150 2650
-Wire Wire Line
-	2200 3800 2200 4650
-Wire Wire Line
-	2200 4650 2800 4650
-Connection ~ 2800 4650
-Wire Wire Line
-	2800 4150 3200 4150
-Wire Wire Line
-	3200 4150 3200 4250
-$Comp
-L Switch:SW_Push_DPDT SW_Toggle-auto-or-manual
-U 1 1 5DF7A4F3
-P 3900 1500
-F 0 "SW_Toggle-auto-or-manual" V 3946 1112 50  0000 R CNN
-F 1 "SW_Push_DPDT" V 3855 1112 50  0000 R CNN
-F 2 "" H 3900 1700 50  0001 C CNN
-F 3 "~" H 3900 1700 50  0001 C CNN
-	1    3900 1500
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	4100 2350 4100 1700
-Wire Wire Line
-	4000 1300 4000 1200
-Wire Wire Line
-	4000 1200 4300 1200
-Wire Wire Line
-	4300 1200 4300 2650
-Wire Wire Line
-	4300 2650 4150 2650
-Wire Wire Line
-	3300 2350 3300 1700
-Wire Wire Line
-	4200 1300 4200 1100
-Wire Wire Line
-	4200 1100 2700 1100
-Wire Wire Line
-	2700 1100 2700 3400
-Wire Wire Line
-	3800 1300 3800 1200
-Wire Wire Line
-	3800 1200 2500 1200
-Wire Wire Line
-	2500 1200 2500 3400
-Wire Wire Line
-	3300 1700 3700 1700
-Wire Wire Line
-	3600 1300 3100 1300
-Wire Wire Line
-	3100 1300 3100 3850
-Wire Wire Line
-	3100 3850 4150 3850
-Wire Wire Line
-	2800 4150 2600 4150
-Wire Wire Line
-	2600 4150 2600 3800
-Connection ~ 2800 4150
 $Comp
 L sensor_optical_ir_breakbeam_sensor:Sensor_Optical_IR_breakbeam_Sensor U?
 U 1 1 5DFB487E
@@ -288,8 +216,6 @@ Wire Wire Line
 	6000 1550 6000 3150
 Wire Wire Line
 	6000 3150 7250 3150
-Wire Bus Line
-	4050 2750 5800 2750
 $Comp
 L sw_dpdt_msm_center-off:SW_DPDT_MSM_Center-OFF SW_RockerSW_manual_moto_ctl
 U 1 1 5DF5CA63
@@ -301,4 +227,70 @@ F 3 "~" H 2600 3600 50  0001 C CNN
 	1    2600 3600
 	0    -1   -1   0   
 $EndComp
+$Comp
+L relay_h-l_12vdc_5vtrigger_nc_no:Relay_H-L_12VDC_5vTrigger_NC_NO K?
+U 1 1 5DE3FD87
+P 4550 4450
+F 0 "K?" H 4980 4496 50  0001 L CNN
+F 1 "Relay_H-L_12VDC_5vTrigger_NC_NO" V 4980 4405 50  0000 L CNN
+F 2 "Relay_THT:Relay_SPDT_SANYOU_SRD_Series_Form_C" H 5000 4400 50  0001 L CNN
+F 3 "http://www.sanyourelay.ca/public/products/pdf/SRD.pdf" H 4150 4550 50  0001 C CNN
+	1    4550 4450
+	0    1    1    0   
+$EndComp
+$Comp
+L Switch:SW_Push_DPDT SW_Toggle-auto-or-manual?
+U 1 1 5E6F2DFB
+P 2900 4600
+F 0 "SW_Toggle-auto-or-manual?" V 2946 4212 50  0000 R CNN
+F 1 "SW_Push_DPDT" V 2855 4212 50  0000 R CNN
+F 2 "" H 2900 4800 50  0001 C CNN
+F 3 "~" H 2900 4800 50  0001 C CNN
+	1    2900 4600
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2600 4400 2200 4400
+Wire Wire Line
+	2200 4400 2200 3800
+Wire Wire Line
+	3000 4400 3000 4100
+Wire Wire Line
+	3000 4100 2600 4100
+Wire Wire Line
+	2600 4100 2600 3800
+Wire Wire Line
+	3200 4400 4250 4400
+Wire Wire Line
+	4250 4400 4250 4650
+Wire Wire Line
+	2800 4400 2800 4250
+Wire Wire Line
+	2800 4250 4250 4250
+Wire Wire Line
+	2700 4800 2700 4900
+Wire Wire Line
+	2700 4900 2650 4900
+Wire Wire Line
+	2650 4900 2650 5150
+Wire Wire Line
+	3100 4800 3100 4900
+Wire Wire Line
+	3100 4900 3150 4900
+Wire Wire Line
+	3150 4900 3150 5150
+Wire Wire Line
+	2700 3400 2700 2350
+Wire Wire Line
+	2700 2350 3300 2350
+Wire Wire Line
+	4100 2350 4150 2350
+Wire Wire Line
+	4150 2350 4150 2650
+Wire Wire Line
+	4250 2850 2500 2850
+Wire Wire Line
+	2500 2850 2500 3400
+Wire Bus Line
+	4050 2750 5800 2750
 $EndSCHEMATC
