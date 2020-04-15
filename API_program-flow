@@ -1,3 +1,6 @@
+(IN PROGRESS.)
+
+
 //WIFI
 setup_wifi()
 connect_server()
